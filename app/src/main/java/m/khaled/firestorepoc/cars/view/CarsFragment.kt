@@ -1,9 +1,7 @@
 package m.khaled.firestorepoc.cars.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -21,6 +19,10 @@ import m.khaled.firestorepoc.helpers.showToast
 
 class CarsFragment : Fragment(), CarsListAdapter.OnCarSelectedListener {
     private lateinit var adapter: CarsListAdapter
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +42,20 @@ class CarsFragment : Fragment(), CarsListAdapter.OnCarSelectedListener {
         fab_add_car.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_carsFragment_to_addCarFragment)
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_cars_fragment, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.my_orders -> {
+                navigate(R.id.action_carsFragment_to_orderList)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initRecyclerView(mQuery: Query) {

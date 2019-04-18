@@ -37,6 +37,9 @@
         <action
                 android:id="@+id/action_carsFragment_to_makeOrderFragment"
                 app:destination="@id/makeOrderFragment"/>
+        <action
+                android:id="@+id/action_carsFragment_to_orderList"
+                app:destination="@id/orderList"/>
     </fragment>
     <fragment
             android:id="@+id/addCarFragment"
@@ -47,4 +50,8 @@
             android:id="@+id/makeOrderFragment"
             android:name="m.khaled.firestorepoc.order.view.MakeOrderFragment"
             android:label="MakeOrderFragment"/>
+    <fragment
+            android:id="@+id/orderList"
+            android:name="m.khaled.firestorepoc.order.view.OrderList"
+            android:label="OrderList"/>
 </navigation>

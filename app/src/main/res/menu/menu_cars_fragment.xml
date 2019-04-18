@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/my_orders"
+            android:title="My Orders"
+            android:icon="@drawable/ic_shopping_cart_white_24dp"
+            app:showAsAction="ifRoom"
+            android:tooltipText="My Orders"/>
+</menu>
