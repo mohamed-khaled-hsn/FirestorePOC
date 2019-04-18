@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".register.view.RegisterFragment">
+
+
+    <TextView
+            android:text="Add car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/edt_make"
+            android:textSize="32sp"/>
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Make"
+            android:ems="10"
+            android:id="@+id/edt_make"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/edt_model"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:hint="Model"
+            android:id="@+id/edt_model"
+            app:layout_constraintTop_toBottomOf="@+id/edt_make"
+            app:layout_constraintBottom_toTopOf="@+id/edt_color"
+            app:layout_constraintEnd_toEndOf="@+id/edt_make"
+            app:layout_constraintStart_toStartOf="@+id/edt_make"
+            />
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:hint="Color"
+            android:id="@+id/edt_color"
+            app:layout_constraintTop_toBottomOf="@+id/edt_model"
+            app:layout_constraintStart_toStartOf="@+id/edt_model"
+            app:layout_constraintEnd_toEndOf="@+id/edt_model"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/edt_price"/>
+
+    <Button
+            android:text="Add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_add_car"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/edt_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"/>
+
+    <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress_bar"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/group_content"
+            app:constraint_referenced_ids="btn_add_car,textView,edt_make,edt_color,edt_model"/>
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Price"
+            android:ems="10"
+            android:id="@+id/edt_price"
+            app:layout_constraintEnd_toEndOf="@+id/edt_color"
+            app:layout_constraintStart_toStartOf="@+id/edt_color"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edt_color"
+            />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
