@@ -1,4 +1,4 @@
-package m.khaled.firestorepoc
+package m.khaled.firestorepoc.register.model
 
 /**
  * Created by Mohamed Khaled on Wed, 17/Apr/2019 at 5:49 PM.

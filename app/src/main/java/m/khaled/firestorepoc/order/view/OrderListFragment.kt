@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -14,7 +12,7 @@ import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_cars.tv_empty_view
 import kotlinx.android.synthetic.main.fragment_order_list.*
 import m.khaled.firestorepoc.R
-import m.khaled.firestorepoc.helpers.showToast
+import m.khaled.firestorepoc.helpers.extensions.showToast
 import m.khaled.firestorepoc.order.view.adapter.OrderListAdapter
 
 /**
@@ -23,7 +21,7 @@ import m.khaled.firestorepoc.order.view.adapter.OrderListAdapter
  * mohamed.khaled@apptcom.com
  * linkedin.com/in/mohamed5aled
  */
-class OrderList : Fragment() {
+class OrderListFragment : Fragment() {
     private lateinit var adapter: OrderListAdapter
 
     override fun onCreateView(
@@ -36,6 +34,7 @@ class OrderList : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        activity?.title = getString(R.string.orders)
         val mQuery = FirebaseFirestore.getInstance().collection("Orders")
             .whereEqualTo("userId", FirebaseAuth.getInstance().uid)
             .limit(20)
@@ -47,32 +46,42 @@ class OrderList : Fragment() {
             override fun onDataChanged() {
                 // Show/hide content if the query returns empty.
                 if (itemCount == 0) {
-                    rv_orders.visibility = View.GONE
-                    tv_empty_view.visibility = View.VISIBLE
+                    showEmptyView()
                 } else {
-                    tv_empty_view.visibility = View.GONE
-                    rv_orders.visibility = View.VISIBLE
+                    showOrderList()
                 }
             }
 
             override fun onError(e: FirebaseFirestoreException) {
-                // Show a snackbar on errors
-                showToast("onError OrderList ${e.message}")
+                showToast("onError OrderListFragment ${e.message}")
             }
         }
-        val layoutManager = LinearLayoutManager(context)
-        rv_orders.layoutManager = layoutManager
-        rv_orders.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
         rv_orders.adapter = adapter
+    }
+
+    private fun showEmptyView() {
+        rv_orders.visibility = View.GONE
+        tv_empty_view.visibility = View.VISIBLE
+    }
+
+    private fun showOrderList() {
+        tv_empty_view.visibility = View.GONE
+        rv_orders.visibility = View.VISIBLE
     }
 
     override fun onStart() {
         super.onStart()
-        adapter.startListening()
+        adapter.apply {
+            if (::adapter.isInitialized)
+                startListening()
+        }
     }
 
     override fun onStop() {
         super.onStop()
-        adapter.stopListening()
+        adapter.apply {
+            if (::adapter.isInitialized)
+                stopListening()
+        }
     }
 }

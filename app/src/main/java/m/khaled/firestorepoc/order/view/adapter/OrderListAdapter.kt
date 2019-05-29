@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.item_order.view.*
-import m.khaled.firestorepoc.FirestoreAdapter
 import m.khaled.firestorepoc.R
+import m.khaled.firestorepoc.base.FirestoreBaseAdapter
 import m.khaled.firestorepoc.order.model.Order
 
 /**
@@ -22,7 +22,7 @@ import m.khaled.firestorepoc.order.model.Order
  * RecyclerView adapter for a list of [Order].
  */
 open class OrderListAdapter(query: Query) :
-    FirestoreAdapter<OrderListAdapter.ViewHolder>(query) {
+    FirestoreBaseAdapter<OrderListAdapter.ViewHolder>(query) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

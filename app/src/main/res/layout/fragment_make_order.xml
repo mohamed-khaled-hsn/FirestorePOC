@@ -9,7 +9,7 @@
 
 
     <TextView
-            android:text="Make Order"
+            android:text="@string/make_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
@@ -23,8 +23,8 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="Location"
+            android:inputType="text"
+            android:hint="@string/location"
             android:ems="10"
             android:id="@+id/edt_location"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,34 +33,37 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="Autofill"/>
 
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:ems="10"
-            android:hint="Time"
+            android:hint="@string/time"
             android:id="@+id/edt_time"
             app:layout_constraintTop_toBottomOf="@+id/edt_location"
             app:layout_constraintBottom_toTopOf="@+id/edt_type"
             app:layout_constraintEnd_toEndOf="@+id/edt_location"
-            app:layout_constraintStart_toStartOf="@+id/edt_location"/>
+            app:layout_constraintStart_toStartOf="@+id/edt_location"
+            tools:ignore="Autofill"/>
 
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:ems="10"
-            android:hint="Type"
+            android:hint="@string/type"
             android:id="@+id/edt_type"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edt_time"
             app:layout_constraintStart_toStartOf="@+id/edt_time"
-            app:layout_constraintEnd_toEndOf="@+id/edt_time"/>
+            app:layout_constraintEnd_toEndOf="@+id/edt_time"
+            tools:ignore="Autofill"/>
 
     <Button
-            android:text="Make Order"
+            android:text="@string/make_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_make_order"

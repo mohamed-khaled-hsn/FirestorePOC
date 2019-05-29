@@ -1,78 +1,80 @@
 package m.khaled.firestorepoc.register.view
 
 
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_register.*
 import m.khaled.firestorepoc.R
-import m.khaled.firestorepoc.User
-import m.khaled.firestorepoc.helpers.getProgressDialog
-import m.khaled.firestorepoc.helpers.navigate
+import m.khaled.firestorepoc.helpers.extensions.getProgressDialog
+import m.khaled.firestorepoc.helpers.extensions.navigate
+import m.khaled.firestorepoc.helpers.extensions.showToast
+import m.khaled.firestorepoc.register.model.RegistrationFields
+import m.khaled.firestorepoc.register.viewmodel.RegisterViewModel
 
 class RegisterFragment : Fragment() {
-    private lateinit var progressDialog: Dialog
-    private val TAG = "register"
+    private lateinit var viewModel: RegisterViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_register, container, false)
-        progressDialog = getProgressDialog()
+        viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
+        subscribeToDataLoadingEvent()
+        subscribeToErrorMessageEvent()
+        subscribeToRegistrationCompletedEvent()
         return view
+    }
+
+    private fun subscribeToRegistrationCompletedEvent() {
+        viewModel.registrationCompletedLiveEvent.observe(viewLifecycleOwner, Observer {
+            navigate(R.id.action_cars)
+        })
+    }
+
+    private fun subscribeToErrorMessageEvent() {
+        viewModel.errorMessageLiveEvent.observe(viewLifecycleOwner, Observer {
+            showToast(it)
+        })
+    }
+
+    private fun subscribeToDataLoadingEvent() {
+        val progressDialog = getProgressDialog()
+        viewModel.dataLoading.observe(viewLifecycleOwner, Observer { loading ->
+            if (loading)
+                progressDialog.show()
+            else
+                progressDialog.hide()
+        })
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btn_register.setOnClickListener {
-            progressDialog.show()
-            register()
+            if (::viewModel.isInitialized) {
+                viewModel.register(
+                    RegistrationFields(
+                        edt_name.text.toString(),
+                        edt_email.text.toString(),
+                        edt_password.text.toString()
+                    )
+                )
+            } else
+                Log.i("RegisterFragment", "ViewModel not initialized")
         }
     }
 
-    private fun register() {
-        val auth = FirebaseAuth.getInstance()
-        val name = edt_name.text.toString()
-        val email = edt_email.text.toString()
-        val password = edt_password.text.toString()
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    saveUserToFireStore(user, name, email)
-                } else {
-                    progressDialog.hide()
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", it.exception)
-                    Toast.makeText(
-                        context, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu?.clear()
     }
-
-    private fun saveUserToFireStore(user: FirebaseUser?, name: String, email: String) {
-        FirebaseFirestore.getInstance().collection("Users")
-            .add(User(user?.uid ?: "", name, email))
-            .addOnSuccessListener {
-                Toast.makeText(context, "successfully created profile", Toast.LENGTH_SHORT).show()
-                progressDialog.hide()
-                navigate(R.id.action_cars)
-            }
-            .addOnFailureListener {
-                progressDialog.hide()
-                Toast.makeText(context, "Failure profile", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-
 }

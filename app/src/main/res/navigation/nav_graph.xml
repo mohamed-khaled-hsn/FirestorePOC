@@ -8,28 +8,30 @@
     <fragment
             android:id="@+id/loginFragment"
             android:name="m.khaled.firestorepoc.login.view.LoginFragment"
-            android:label="fragment_login"
+            android:label="Login"
             tools:layout="@layout/fragment_login">
         <action
                 android:id="@+id/action_register"
                 app:destination="@id/registerFragment"/>
         <action
                 android:id="@+id/action_loginFragment_to_carsFragment"
-                app:destination="@id/carsFragment"/>
+                app:destination="@id/carsFragment"
+                app:popUpTo="@+id/nav_graph"/>
     </fragment>
     <fragment
             android:id="@+id/registerFragment"
             android:name="m.khaled.firestorepoc.register.view.RegisterFragment"
-            android:label="fragment_register"
+            android:label="Registration"
             tools:layout="@layout/fragment_register">
         <action
                 android:id="@+id/action_cars"
-                app:destination="@id/carsFragment"/>
+                app:destination="@id/carsFragment"
+                app:popUpTo="@+id/nav_graph"/>
     </fragment>
     <fragment
             android:id="@+id/carsFragment"
             android:name="m.khaled.firestorepoc.cars.view.CarsFragment"
-            android:label="fragment_cars"
+            android:label="My Cars"
             tools:layout="@layout/fragment_cars">
         <action
                 android:id="@+id/action_carsFragment_to_addCarFragment"
@@ -44,14 +46,17 @@
     <fragment
             android:id="@+id/addCarFragment"
             android:name="m.khaled.firestorepoc.cars.view.AddCarFragment"
-            android:label="fragment_add_car"
+            android:label="Add Car"
             />
     <fragment
             android:id="@+id/makeOrderFragment"
             android:name="m.khaled.firestorepoc.order.view.MakeOrderFragment"
-            android:label="MakeOrderFragment"/>
+            android:label="New Order"/>
     <fragment
             android:id="@+id/orderList"
-            android:name="m.khaled.firestorepoc.order.view.OrderList"
-            android:label="OrderList"/>
+            android:name="m.khaled.firestorepoc.order.view.OrderListFragment"
+            android:label="My Orders"/>
+    <action
+            android:id="@+id/action_global_loginFragment"
+            app:destination="@id/loginFragment"/>
 </navigation>

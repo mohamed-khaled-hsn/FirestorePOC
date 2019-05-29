@@ -3,19 +3,23 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_cars"
+            tools:listitem="@layout/item_car"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
     <TextView
             android:id="@+id/tv_empty_view"
             android:layout_width="wrap_content"
+            tools:visibility="gone"
             android:layout_gravity="center"
             app:layout_anchorGravity="center"
-            android:text="Empty cars list"
+            android:text="@string/empty_cars_list"
             android:layout_height="wrap_content"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

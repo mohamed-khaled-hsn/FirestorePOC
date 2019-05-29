@@ -1,4 +1,4 @@
-package m.khaled.firestorepoc
+package m.khaled.firestorepoc.base
 
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +11,7 @@ import com.google.firebase.firestore.*
  * [DocumentSnapshot.toObject] is not cached so the same object may be deserialized
  * many times as the user scrolls.
  */
-abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var query: Query?) :
+abstract class FirestoreBaseAdapter<VH : RecyclerView.ViewHolder>(private var query: Query?) :
     RecyclerView.Adapter<VH>(),
     EventListener<QuerySnapshot> {
 
@@ -109,6 +109,6 @@ abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var query:
 
     companion object {
 
-        private const val TAG = "FirestoreAdapter"
+        private const val TAG = "FirestoreBaseAdapter"
     }
 }

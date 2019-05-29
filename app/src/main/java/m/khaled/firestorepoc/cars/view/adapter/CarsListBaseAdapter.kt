@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.item_car.view.*
-import m.khaled.firestorepoc.FirestoreAdapter
 import m.khaled.firestorepoc.R
+import m.khaled.firestorepoc.base.FirestoreBaseAdapter
 import m.khaled.firestorepoc.cars.model.Car
 
 /**
  * RecyclerView adapter for a list of [Car].
  */
-open class CarsListAdapter(query: Query, private val listener: OnCarSelectedListener) :
-    FirestoreAdapter<CarsListAdapter.ViewHolder>(query) {
+open class CarsListBaseAdapter(query: Query, private val listener: OnCarSelectedListener) :
+    FirestoreBaseAdapter<CarsListBaseAdapter.ViewHolder>(query) {
     interface OnCarSelectedListener {
         fun onCarSelected(carSelected: Car)
     }
